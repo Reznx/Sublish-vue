@@ -29,7 +29,7 @@
       <div class="form__group">
         <label for="name">Имя</label>
         <input type="name" name="name" v-model.trim="name" class="form__control" />
-        <div class="helper-text invalid" v-if="$v.name.$dirty && !$v.name.required">Введите имя</div>
+        <small class="helper-text invalid" v-if="$v.name.$dirty && !$v.name.required">Введите имя</small>
       </div>
       <div class="form__group">
         <button class="btn btn__primary" type="submit" to="/" :disabled="agree">Регистрация</button>
