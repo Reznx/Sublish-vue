@@ -1,0 +1,91 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-areas:
+    "h h h"
+    "n c c"
+    "f f f";
+  grid-template-rows: 60px 1fr 60px;
+  grid-template-columns: 15% 1fr;
+  grid-gap: 10px;
+  min-height: calc(100vh - 10px);
+  margin: 0;
+}
+
+.empty {
+  display: grid;
+  grid-template-areas:
+    "h h h"
+    "c c c"
+    "f f f";
+  grid-template-rows: 60px 1fr 60px;
+  grid-template-columns: 15% 1fr;
+  grid-gap: 10px;
+  min-height: calc(100vh - 10px);
+  margin: 0;
+}
+
+.container {
+  grid-area: c;
+  border: 1px solid black;
+}
+
+.empty__layout {
+  display: grid;
+  grid-template-areas:
+    "h h h"
+    "с c c"
+    "f f f";
+  grid-template-rows: 60px 1fr 60px;
+}
+
+// Form
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// Header
+.header {
+  grid-area: h;
+  background-color: red;
+  border: 1px solid black;
+  &__wrapper {
+    display: flex;
+    margin-top: 20px;
+  }
+  &__wrapper > div:nth-child(2) {
+    margin-left: auto;
+    padding-right: 20px;
+  }
+  &__logo {
+    grid-area: logo;
+  }
+  &__login {
+    grid-area: login;
+  }
+}
+
+// Navigation
+.nav {
+  grid-area: n;
+  border: 1px solid black;
+}
+
+// Footer
+.footer {
+  grid-area: f;
+  border: 1px solid black;
+}
