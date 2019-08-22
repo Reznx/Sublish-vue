@@ -48,21 +48,28 @@ export default {
   data: () => ({
     email: "",
     password: "",
-    name: "",
     agree: false
   }),
   validations: {
     email: { email, required },
-    password: { required, minLength: minLength(6) },
-    name: { required }
+    password: { required, minLength: minLength(6) }
   },
   methods: {
-    submitHandler() {
+    async submitHandler() {
       if (this.$v.$invalid) {
         this.$v.$touch();
         return;
       }
       this.agree = !this.agree;
+
+      const formData = {
+        email: this.email,
+        password: this.password
+      };
+      try {
+        await this.$store.dispatch("login", formData);
+        this.$router.push("/");
+      } catch (e) {}
     }
   }
 };
