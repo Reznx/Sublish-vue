@@ -1,8 +1,8 @@
 <template>
-  <div class="form">
-    <h2>Register</h2>
+  <div class="form container z-depth-3">
+    <h2>Регистрация</h2>
     <form @submit.prevent="submitHandler">
-      <div class="form__group">
+      <div class="input-field">
         <label for="firstName">E-mail</label>
         <input type="text" name="email" v-model.trim="email" class="form__control" />
         <small
@@ -14,7 +14,7 @@
           v-else-if="$v.email.$dirty && !$v.email.email"
         >Введите корректный E-mail</small>
       </div>
-      <div class="form__group">
+      <div class="input-field">
         <label for="password">Пароль</label>
         <input type="password" name="password" v-model.trim="password" class="form__control" />
         <small
@@ -26,12 +26,12 @@
           v-else-if="$v.password.$dirty && !$v.password.minLength"
         >Пароль должен быть {{$v.password.$params.minLength.min}} символов. Сейчас он {{password.length}}</small>
       </div>
-      <div class="form__group">
+      <div class="input-field">
         <label for="name">Имя</label>
-        <input type="name" name="name" v-model.trim="name" class="form__control" />
+        <input type="text" name="name" v-model.trim="name" class="form__control" />
         <small class="helper-text invalid" v-if="$v.name.$dirty && !$v.name.required">Введите имя</small>
       </div>
-      <div class="form__group">
+      <div class="input-field">
         <button class="btn btn__primary" type="submit" to="/" :disabled="agree">Регистрация</button>
         <img
           v-if="agree"
@@ -39,7 +39,7 @@
         />
         <p class="form__info">
           Уже есть аккаунт?
-          <router-link to="/login" class="btn btn__link">Войти</router-link>
+          <router-link to="/login">Войти</router-link>
         </p>
       </div>
     </form>

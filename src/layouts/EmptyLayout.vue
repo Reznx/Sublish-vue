@@ -1,21 +1,20 @@
 <template>
   <div class="empty">
-    <Header />
+    <Navbar />
     <div class="container">
       <router-view />
     </div>
-    <Footer />
   </div>
 </template>
 
 <script>
 import Header from "@/components/app/Header";
-import Footer from "@/components/app/Footer";
+import Navbar from "@/components/app/Navbar";
 
 export default {
   components: {
     Header,
-    Footer
+    Navbar
   }
 };
 </script>

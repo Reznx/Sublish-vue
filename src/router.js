@@ -10,13 +10,13 @@ export default new Router({
     {
       path: "/login",
       name: "login",
-      meta: { layout: "empty" },
+      meta: { layout: "main" },
       component: () => import("./views/Login.vue")
     },
     {
       path: "/register",
       name: "register",
-      meta: { layout: "empty" },
+      meta: { layout: "main" },
       component: () => import("./views/Register.vue")
     },
     {

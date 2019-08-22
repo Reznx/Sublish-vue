@@ -1,10 +1,10 @@
 <template>
-  <div class="form">
-    <h2>Register</h2>
+  <div class="form container z-depth-3">
+    <h2>Войти</h2>
     <form @submit.prevent="submitHandler">
-      <div class="form__group">
+      <div class="input-field">
         <label for="firstName">E-mail</label>
-        <input type="text" name="email" v-model.trim="email" class="form__control" />
+        <input id="email" type="email" v-model.trim="email" class="validate" />
         <small
           class="helper-text invalid"
           v-if="$v.email.$dirty && !$v.email.required"
@@ -14,7 +14,7 @@
           v-else-if="$v.email.$dirty && !$v.email.email"
         >Введите корректный E-mail</small>
       </div>
-      <div class="form__group">
+      <div class="input-field">
         <label for="password">Пароль</label>
         <input type="password" name="password" v-model.trim="password" class="form__control" />
         <small
@@ -34,7 +34,7 @@
         />
         <p class="form__info">
           Нет аккаунта?
-          <router-link to="/register" class="btn btn__link">Зарегистрироваться</router-link>
+          <router-link to="/register" >Зарегистрироваться</router-link>
         </p>
       </div>
     </form>
@@ -67,7 +67,7 @@ export default {
         password: this.password
       };
       try {
-        await this.$store.dispatch("login", formData);
+        await this.$store.dispatch("SIGNIN", formData);
         this.$router.push("/");
       } catch (e) {}
     }

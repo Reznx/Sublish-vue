@@ -1,11 +1,11 @@
 <template>
-  <header class="header">
-    <div class="header__wrapper">
-      <div class="header__logo">Header logo</div>
-      <div class="header__login">
+  <nav class="header col s12 m12 l12">
+    <div class="header__block">
+      <div class="">Header logo</div>
+      <div class="">
         <router-link to="/login">Вход</router-link>
         <router-link to="/register">Регистрация</router-link>
       </div>
     </div>
-  </header>
+  </nav>
 </template>

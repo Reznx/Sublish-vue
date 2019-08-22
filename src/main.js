@@ -4,6 +4,7 @@ import Vuelidate from "vuelidate";
 import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
+import "materialize-css/dist/js/materialize.min";
 
 import firebase from "firebase/app";
 import "firebase/auth";
