@@ -1,5 +1,5 @@
 <template>
-  <div class="form container z-depth-3">
+  <div class="form container z-depth-1">
     <h2>Регистрация</h2>
     <form @submit.prevent="submitHandler">
       <div class="input-field">
@@ -32,7 +32,7 @@
         <small class="helper-text invalid" v-if="$v.name.$dirty && !$v.name.required">Введите имя</small>
       </div>
       <div class="input-field">
-        <button class="btn btn__primary" type="submit" to="/" :disabled="agree">Регистрация</button>
+        <button class="btn btn__primary" type="submit" :disabled="processing">Регистрация</button>
         <img
           v-if="agree"
           src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
@@ -61,13 +61,28 @@ export default {
     password: { required, minLength: minLength(6) },
     name: { required }
   },
+  computed: {
+    processing() {
+      return this.$store.getters.getProccesing
+    },
+  },
   methods: {
-    submitHandler() {
+    async submitHandler() {
       if (this.$v.$invalid) {
         this.$v.$touch();
         return;
       }
-      this.agree = !this.agree;
+
+      const formData = {
+        email: this.email,
+        password: this.password,
+        name: this.name
+      };
+
+      try {
+        await this.$store.dispatch("register", formData);
+        this.$router.push("/");
+      } catch (e) {}
     }
   }
 };

@@ -7,7 +7,7 @@
       </a>
       <ul class="right hide-on-med-and-down">
         <router-link
-          v-for="link in links"
+          v-for="link in linkItems"
           :key="link.title"
           active-class="active"
           tag="li"
@@ -30,16 +30,16 @@
             </li>
             <li class="divider" tabindex="-1"></li>
             <li>
-              <router-link href="#" to="/login" class="black-text" @click.prevent="logout">
+              <a href="#" class="black-text" @click.prevent="logout">
                 <i class="material-icons">assignment_return</i>Выйти
-              </router-link>
+              </a>
             </li>
           </ul>
         </li>
       </ul>
     </div>
     <ul class="sidenav" id="mobile-demo" ref="sidenav">
-      <router-link v-for="link in links" :key="link.title" tag="li" :to="link.url">
+      <router-link v-for="link in linkItems" :key="link.title" tag="li" :to="link.url">
         <a href="#">{{link.title}}</a>
       </router-link>
     </ul>
@@ -49,13 +49,6 @@
 <script>
 export default {
   data: () => ({
-    links: [
-      { title: "Главная", url: "/", exact: true },
-      { title: "Друзья", url: "/friends" },
-      { title: "Сообщения", url: "/messages" },
-      { title: "Список", url: "/list" },
-      { title: "Войти", url: "/login" }
-    ],
     dropdown: null,
     sidenav: null
   }),
@@ -72,6 +65,31 @@ export default {
     }
     if (this.sidenav && this.sidenav.destroy) {
       this.sidenav.destroy();
+    }
+  },
+  computed: {
+    isUserAuthenticated() {
+      this.$store.getters.isUserAuthenticated;
+    },
+    linkItems() {
+      return this.isUserAuthenticated
+        ? [
+            { title: "Главная", url: "/", exact: true },
+            { title: "Друзья", url: "/friends" },
+            { title: "Сообщения", url: "/messages" },
+            { title: "Список", url: "/list" }
+          ]
+        : [
+            { title: "Главная", url: "/", exact: true },
+            { title: "Список", url: "/list" },
+            { title: "Войти", url: "/login" }
+          ];
+    }
+  },
+  methods: {
+    async logout() {
+      await this.$store.dispatch("logout");
+      this.$router.push("/login?message=logout");
     }
   }
 };
