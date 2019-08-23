@@ -16,13 +16,13 @@
         >
           <a href="#" class="black-text">{{link.title}}</a>
         </router-link>
-        <li>
+        <li v-show="isUserAuthenticated">
           <a class="dropdown-trigger black-text" href="#" data-target="dropdown" ref="dropdown">
             Имя
             <i class="material-icons right">person_pin</i>
           </a>
 
-          <ul id="dropdown" class="dropdown-content">
+          <ul id="dropdown" class="dropdown-content" >
             <li>
               <router-link to="/profile" class="black-text">
                 <i class="material-icons">account_circle</i>Профиль
@@ -35,6 +35,7 @@
               </a>
             </li>
           </ul>
+          
         </li>
       </ul>
     </div>
@@ -69,7 +70,7 @@ export default {
   },
   computed: {
     isUserAuthenticated() {
-      this.$store.getters.isUserAuthenticated;
+      return this.$store.getters.isUserAuthenticated;
     },
     linkItems() {
       return this.isUserAuthenticated
@@ -82,7 +83,7 @@ export default {
         : [
             { title: "Главная", url: "/", exact: true },
             { title: "Список", url: "/list" },
-            { title: "Войти", url: "/login" }
+            { title: "Войти", url: "/login" },
           ];
     }
   },
